@@ -4,13 +4,13 @@
 
 DESTSRV="0.0.0.0"
 LOGDIR="/tmp/isilon-migration"
-declare -a LEBHOMES01DIRS=("marcom" "home")
-declare -a LEBHOMES02DIRS=("dev1" "dev3" "sup1" "sup2")
-declare -a LEBHOMES03DIRS=("home" "dev1" "dev2" "dev3")
-declare -a LEBHOMES04DIRS=("home")
-declare -a LEBHOMES05DIRS=(" ")
-declare -a LEBHOMES06DIRS=(" ")
-declare -a LEBHOMES07DIRS=(" ")
+declare -a LEBHOMES01DIRS=("/marcom" "/home")
+declare -a LEBHOMES02DIRS=("/dev1" "/dev3" "/sup1" "/sup2")
+declare -a LEBHOMES03DIRS=("/home" "/dev1" "/dev2" "/dev3")
+declare -a LEBHOMES04DIRS=("/home")
+declare -a LEBHOMES05DIRS=("/foo")
+declare -a LEBHOMES06DIRS=("/foo")
+declare -a LEBHOMES07DIRS=("/foo")
 
 ##### Confirm rsync Binary #####
 
@@ -75,8 +75,10 @@ fi
 function migrateLH01 {
 	for dir in "${LEBHOMES01DIRS[@]}"
 	do
+		printf "Gathering directory size...\n"
+		du -h 
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes01:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes01-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes01-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes01-migration-$dir-time.log
@@ -87,7 +89,7 @@ function migrateLH02 {
 	for dir in "${LEBHOMES02DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes02:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes02-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes02-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes02-rsync-$dir-time.log
@@ -98,7 +100,7 @@ function migrateLH03 {
 	for dir in "${LEBHOMES03DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes03:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes03-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes03-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME")) 
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes03-rsync-$dir-time.log
@@ -109,7 +111,7 @@ function migrateLH04 {
 	for dir in "${LEBHOMES04DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes04:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes04-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes04-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes04-rsync-$dir-time.log
@@ -120,7 +122,7 @@ function migrateLH05 {
 	for dir in "${LEBHOMES05DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes05:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes05-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes05-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes05-rsync-$dir-time.log
@@ -131,7 +133,7 @@ function migrateLH06 {
 	for dir in "${LEBHOMES06DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes06:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes06-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes06-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes06-rsync-$dir-time.log
@@ -142,7 +144,7 @@ function migrateLH07 {
 	for dir in "${LEBHOMES05DIRS[@]}"
 	do
 		STARTTIME=$(date +'%s')
-		rsync -avz --progress lebhomes07:/"$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes07-migration.log
+		rsync -avz --progress "$dir" "$DESTSRV":"$DESTPATH" > "$LOGDIR"/lebhomes07-migration.log
 		ENDTIME=$(date +'%s')
 		TOTALTIME=$(("$ENDTIME" - "$STARTTIME"))
 		echo "Migration time: $TOTALTIME seconds" >> "$LOGDIR"/lebhomes07-rsync-$dir-time.log
