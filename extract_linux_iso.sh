@@ -15,14 +15,14 @@ NFSISOPATH='/srv/iso'
 mountAndCopy () {
     # Create ISO mount path and perform mount
     if [ ! -d /mnt/$ISO_OSNAME ]; then
-        mkdir -p /mnt/$ISOBASENAME && mount -o loop $1 /mnt/$ISOBASENAME
+        mkdir -p /mnt/$ISONOEXT && mount -o loop $1 /mnt/$ISONOEXT
     else
-        umount /mnt/$ISON
-        mount -o loop $1 /mnt/$ISOBASENAME
+        umount /mnt/$ISONOEXT
+        mount -o loop $1 /mnt/$ISONOEXT
     fi
 
     # Copy the ISO contents to the ISO share
-    cp -rv /mnt/$ISOBASENAME/. $NFSISOPATH/$OSNAME/$OSMAJ/$OSMIN
+    cp -rv /mnt/$ISONOEXT/. $NFSISOPATH/$OSNAME/$OSMAJ/$OSMIN
 
     printf "\n\n"
     echo "Done!"
@@ -33,7 +33,7 @@ confirmChoice () {
 
     case $CONFIRM in
         [Yy])
-            mountAndCopy()
+            mountAndCopy
             ;;
         [Nn])
             exit 0
