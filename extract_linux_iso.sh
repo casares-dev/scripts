@@ -6,7 +6,7 @@
 
 ISO=$1
 ISOBASENAME=$(basename $ISO)
-ISONOEXT=$( echo "${ISOBASENAME%.*}")
+ISONOEXT=$( echo "${ISOBASENAME%.*}" )
 ISO_OSNAME=$(echo $ISOBASENAME | cut -d - -f 1)
 OSMAJ=$(echo $ISOBASENAME | cut -d . -f 1 | cut -d - -f 2)
 OSMIN=$(echo $ISOBASENAME | cut -d . -f 2 | cut -d - -f 1)
