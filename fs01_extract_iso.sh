@@ -55,7 +55,7 @@ confirmChoice () {
 }
 
 if [ "$ISO_OSNAME" == "rhel" ]; then
-    OSNAME='RedHat'
+    OSNAME="RedHat"
 elif [ "$ISO_OSNAME" == "debian" ]; then
     OSNAME="Debian"
 elif [ "$ISO_OSNAME" == "alpine"]; then
